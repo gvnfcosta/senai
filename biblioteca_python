@@ -1,0 +1,108 @@
+import subprocess
+import os
+
+def limpar_tela():
+    input("Tecle ENTER")
+    comando = 'cls' if os.name == 'nt' else 'clear'
+    subprocess.run(comando, shell=True)
+    
+def mostrar_livros():
+    if len(livros) == 0:
+        print("Não há livros disponíveis")
+    else:
+        print("=== LIVROS DISPONIVEIS ===")
+        for i in range(len(livros)):
+            print(i + 1, " - ", livros[i])
+
+def emprestar_livro():
+    if len(livros) == 0:
+        print("Não há livros disponíveis.")
+    else:
+        print("\nLivros disponíveis:")
+        for i in range(len(livros)):
+            print(i + 1, "-", livros[i])
+
+        escolha = int(input("Digite o número do livro: "))
+
+        if escolha >= 1 and escolha <= len(livros):
+            livro = livros.pop(escolha - 1)
+            emprestados.append(livro)
+            print("Livro emprestado:", livro)
+        else:
+            print("Opção inválida!")
+
+def devolver_livro():
+    if len(emprestados) == 0:
+        print("Nenhum livro para devolver.")
+    else:
+        print("\nLivros emprestados:")
+        for i in range(len(emprestados)):
+            print(i + 1, "-", emprestados[i])
+
+        escolha = int(input("Digite o número do livro: "))
+
+        if escolha >= 1 and escolha <= len(emprestados):
+            livro = emprestados.pop(escolha - 1)
+            livros.append(livro)
+            print("Livro devolvido:", livro)
+        else:
+            print("Opção inválida!")
+
+def consultar_livros_emprestados():
+    if len(emprestados) == 0:
+        print("Nenhum livro emprestado.")
+    else:
+        print("\nLivros emprestados:")
+        for i in range(len(emprestados)):
+            print("-", emprestados[i])
+
+livros = [
+    "Dom Casmurro",
+    "1984",
+    "O Pequeno Príncipe",
+    "A Revolução dos Bichos",
+    "Harry Potter",
+    "O Senhor dos Anéis",
+    "Capitães da Areia",
+    "Memórias Póstumas de Brás Cubas",
+    "O Hobbit",
+    "Percy Jackson"
+]
+
+emprestados = []
+
+opcao = -1
+
+while opcao != 0:
+   
+    # limpar_tela()
+    
+    print("\n")
+    print("===== SISTEMA DE BIBLIOTECA =====")
+    print("1 - Mostrar livros disponíveis")
+    print("2 - Emprestar livro")
+    print("3 - Devolver livro")
+    print("4 - Consultar livros emprestados")
+    print("0 - Sair")
+    print("\n")
+    
+    opcao = int(input("Escolha uma opção: "))
+
+
+    if opcao == 1:
+        mostrar_livros()
+        
+    elif opcao == 2:
+        emprestar_livro()
+        
+    elif opcao == 3:
+        devolver_livro()
+
+    elif opcao == 4:
+        consultar_livros_emprestados()
+    
+    elif opcao == 0:
+        print("Encerrando o sistema...")
+    
+    else:
+        print("Opção inválida!")
